@@ -13,11 +13,17 @@ Base.@propagate_inbounds Base.getindex(a::IntervalBox, i::Int) = a.data[i]
 
 IntervalBox(x::Interval) = IntervalBox( (x,) )  # single interval treated as tuple with one element
 
+# IntervalBox(xx) = IntervalBox(Interval.(xx))
+# IntervalBox(xx::SVector) where {N,T} = IntervalBox(Interval.(xx))
+
 
 ## arithmetic operations
 # Note that standard arithmetic operations are implemented automatically by FixedSizeArrays.jl
 
 mid(X::IntervalBox) = mid.(X)
+mid(X::IntervalBox, α) = mid.(X, α)
+
+big(X::IntervalBox) = IntervalBox(big.(X))
 
 
 ## set operations
